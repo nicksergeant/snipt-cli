@@ -42,6 +42,6 @@ I like to alias it like this:
 
 ## Vim shortcut
 
-Select text in visual mode. Hit <leader>G. It'll post to Snipt, copy the returned URL, and open it in your browser.
+Select text in visual mode. Hit \<leader\>G. It'll post to Snipt, copy the returned URL, and open it in your browser.
 
     vnoremap <leader>G :w !snipt post_and_get_url \| pbcopy && pbpaste \| xargs open<CR>
