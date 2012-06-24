@@ -26,7 +26,7 @@ Pipe some data to `snipt post_and_get_url`.
 
     echo 'Oh hai' | snipt post_and_get_url
 
-With a specific lexer:
+With a specific [lexer](https://snipt.net/nick/list-of-lexers-for-use-with-the-snipt-api/):
 
     echo 'Oh hai' | snipt post_and_get_url python
 
