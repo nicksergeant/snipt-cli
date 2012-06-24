@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+
+import clint, ConfigParser, json, os, requests
+from clint.textui import colored
+from clint.textui import puts
+
+config = ConfigParser.ConfigParser()
+config.read(os.path.expanduser('~/.snipt'))
+
+username = config.get('user', 'username')
+api_key = config.get('user', 'api_key')
+
+
+def main():
+
+    # Post a new snipt.
+    if clint.args.get(0) == 'post_and_get_url':
+        code = clint.piped_in()
+
+        # Have a lexer? Let's use it.
+        if clint.args.get(1):
+            lexer = clint.args.get(1)
+        else:
+            lexer = 'text'
+
+        data = {
+            'code': code,
+            'lexer': lexer,
+        }
+
+        headers = {
+            'Authorization': 'ApiKey {}:{}'.format(username, api_key),
+            'Content-Type': 'application/json',
+        }
+
+        r = requests.post('https://snipt.net/api/private/snipt/',
+            data=json.dumps(data),
+            headers=headers)
+
+        if r.status_code in [200, 201]:
+            print r.json['full_absolute_url']
+        else:
+            print puts(colored.red("Something wen't horribly wrong. We got a non-OK response from Snipt."))
+
+if __name__ == '__main__':
+    main()
