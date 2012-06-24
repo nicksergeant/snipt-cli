@@ -3,6 +3,15 @@ Snipt CLI
 
 A Python-based CLI for working with the Snipt.net API.
 
+
+## Requirements
+
+    pip install clint requests
+
+## Symlink
+
+    ln -s snipt /usr/local/bin/snipt
+
 ## Configuration
 
 Create a configuration file in your home directory named `.snipt` with your [Snipt.net](https://snipt.net) username and API key:
