@@ -14,7 +14,7 @@ A Python-based CLI for working with the Snipt.net API.
 
 ## Configuration
 
-Create a configuration file in your home directory named `.snipt` with your [Snipt.net](https://snipt.net) username and API key:
+Create a configuration file in your home directory named `.snipt` with your [Snipt.net](https://snipt.net) username and [API key](https://snipt.net/api/):
 
     [user]
     username=USERNAME
@@ -34,7 +34,7 @@ I like to alias it like this:
 
     alias sp='snipt post_and_get_url'
 
-...so it's nice and sweet:
+...so it's short and sweet:
 
     echo For real.|sp javascript|xargs open
 
