@@ -14,12 +14,12 @@ api_key = config.get('user', 'api_key')
 def main():
 
     # Post a new snipt.
-    if clint.args.get(0) == 'post_and_get_url':
+    if clint.args.not_flags.get(0) == 'post_and_get_url':
         code = clint.piped_in()
 
         # Have a lexer? Let's use it.
-        if clint.args.get(1):
-            lexer = clint.args.get(1)
+        if clint.args.not_flags.get(1):
+            lexer = clint.args.not_flags.get(1)
         else:
             lexer = 'text'
 
@@ -27,6 +27,9 @@ def main():
             'code': code,
             'lexer': lexer,
         }
+
+        if '-t' in clint.args.flags:
+            data['tags'] = 'tmp'
 
         headers = {
             'Authorization': 'ApiKey {}:{}'.format(username, api_key),
