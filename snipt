@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
-import clint, ConfigParser, json, os, requests
+import clint, ConfigParser, json, os, requests, sys
 from clint.textui import colored
-from clint.textui import puts
 
 config = ConfigParser.ConfigParser()
 config.read(os.path.expanduser('~/.snipt'))
@@ -41,9 +40,9 @@ def main():
             headers=headers)
 
         if r.status_code in [200, 201]:
-            print r.json['full_absolute_url']
+            sys.stdout.write(r.json['full_absolute_url'])
         else:
-            print puts(colored.red("Something wen't horribly wrong. We got a non-OK response from Snipt."))
+            sys.stdout.write((colored.red("Something wen't horribly wrong. We got a non-OK response from Snipt.")))
 
 if __name__ == '__main__':
     main()
