@@ -40,7 +40,7 @@ def main():
             headers=headers)
 
         if r.status_code in [200, 201]:
-            sys.stdout.write(r.json['full_absolute_url'])
+            sys.stdout.write('{}?nice'.format(r.json['raw_url']))
         else:
             sys.stdout.write((colored.red("Something wen't horribly wrong. We got a non-OK response from Snipt.")))
 
