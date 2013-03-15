@@ -2,6 +2,7 @@
 
 import clint, ConfigParser, json, os, requests, sys
 from clint.textui import colored
+from gntp.notifier import mini
 
 config = ConfigParser.ConfigParser()
 config.read(os.path.expanduser('~/.snipt'))
@@ -9,12 +10,16 @@ config.read(os.path.expanduser('~/.snipt'))
 username = config.get('user', 'username')
 api_key = config.get('user', 'api_key')
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 def main():
 
     # Post a new snipt.
     if clint.args.not_flags.get(0) == 'post_and_get_url':
+
         code = clint.piped_in()
+        code = code.encode('utf-8')
 
         # Have a lexer? Let's use it.
         if clint.args.not_flags.get(1):
@@ -39,8 +44,14 @@ def main():
             data=json.dumps(data),
             headers=headers)
 
+        snipt_url = '{}?nice'.format(r.json['raw_url'])
+
         if r.status_code in [200, 201]:
-            sys.stdout.write('{}?nice'.format(r.json['raw_url']))
+            sys.stdout.write(snipt_url)
+            mini('"{}..."'.format(r.json['code'][:100].encode('ascii', 'ignore')),
+                    callback=snipt_url,
+                    applicationName='Snipt',
+                    title='Posted to Snipt')
         else:
             sys.stdout.write((colored.red("Something wen't horribly wrong. We got a non-OK response from Snipt.")))
 

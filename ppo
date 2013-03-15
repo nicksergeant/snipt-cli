@@ -1,3 +1,0 @@
-#!/usr/local/bin/fish
-
-pbpaste|scli post_and_get_url -t|pbcopy; pbpaste|xargs open

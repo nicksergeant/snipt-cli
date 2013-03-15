@@ -1,0 +1,3 @@
+#!/usr/local/bin/fish
+
+pbpaste|scli post_and_get_url -t -lexer $argv|pbcopy; pbpaste|xargs open
