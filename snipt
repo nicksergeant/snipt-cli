@@ -44,11 +44,11 @@ def main():
             data=json.dumps(data),
             headers=headers)
 
-        snipt_url = '{}?nice'.format(r.json['raw_url'])
+        snipt_url = '{}?nice'.format(r.json()['raw_url'])
 
         if r.status_code in [200, 201]:
             sys.stdout.write(snipt_url)
-            mini('"{}..."'.format(r.json['code'][:100].encode('ascii', 'ignore')),
+            mini('"{}..."'.format(r.json()['code'][:100].encode('ascii', 'ignore')),
                     callback=snipt_url,
                     applicationName='Snipt',
                     title='Posted to Snipt')
