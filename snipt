@@ -30,6 +30,7 @@ def main():
         data = {
             'code': code,
             'lexer': lexer,
+            'title': 'Untitled'
         }
 
         if '-t' in clint.args.flags:
