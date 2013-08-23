@@ -1,8 +1,13 @@
 #!/usr/bin/env python
 
-import clint, ConfigParser, json, os, requests, sys
+import clint
+import ConfigParser
+import json
+import os
+import requests
+import sys
+
 from clint.textui import colored
-from gntp.notifier import mini
 
 config = ConfigParser.ConfigParser()
 config.read(os.path.expanduser('~/.snipt'))
@@ -12,6 +17,7 @@ api_key = config.get('user', 'api_key')
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
+
 
 def main():
 
@@ -42,19 +48,16 @@ def main():
         }
 
         r = requests.post('https://snipt.net/api/private/snipt/',
-            data=json.dumps(data),
-            headers=headers)
+                          data=json.dumps(data),
+                          headers=headers)
 
         snipt_url = '{}?nice'.format(r.json()['raw_url'])
 
         if r.status_code in [200, 201]:
             sys.stdout.write(snipt_url)
-            mini('"{}..."'.format(r.json()['code'][:100].encode('ascii', 'ignore')),
-                    callback=snipt_url,
-                    applicationName='Snipt',
-                    title='Posted to Snipt')
         else:
-            sys.stdout.write((colored.red("Something wen't horribly wrong. We got a non-OK response from Snipt.")))
+            sys.stdout.write((colored.red("""Something wen't horribly wrong.
+We got a non-OK response from Snipt.""")))
 
 if __name__ == '__main__':
     main()
