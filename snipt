@@ -7,6 +7,7 @@ import os
 import requests
 import sys
 
+from clint import arguments
 from clint.textui import colored
 
 config = ConfigParser.ConfigParser()
@@ -21,15 +22,17 @@ sys.setdefaultencoding('utf-8')
 
 def main():
 
+    args = arguments.Args()
+
     # Post a new snipt.
-    if clint.args.not_flags.get(0) == 'post_and_get_url':
+    if args.not_flags.get(0) == 'post_and_get_url':
 
         code = clint.piped_in()
         code = code.encode('utf-8')
 
         # Have a lexer? Let's use it.
-        if clint.args.not_flags.get(1):
-            lexer = clint.args.not_flags.get(1)
+        if args.not_flags.get(1):
+            lexer = args.not_flags.get(1)
         else:
             lexer = 'text'
 
@@ -39,7 +42,7 @@ def main():
             'title': 'Untitled'
         }
 
-        if '-t' in clint.args.flags:
+        if '-t' in args.flags:
             data['tags'] = 'tmp'
 
         headers = {
