@@ -52,8 +52,7 @@ def main():
 
         r = requests.post('https://snipt.net/api/private/snipt/',
                           data=json.dumps(data),
-                          headers=headers,
-                          verify=False)
+                          headers=headers)
 
         snipt_url = '{}?nice'.format(r.json()['raw_url'])
 
